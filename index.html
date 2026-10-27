@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecipeNest | Recipe Finder & Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header class="navbar">
+        <a class="logo" href="#">🍃 RecipeNest</a>
+        <nav>
+            <a href="#recipes">Recipes</a>
+            <a href="#planner">Meal Planner</a>
+            <a href="#shopping">Shopping List</a>
+        </nav>
+        <button class="favorite-nav" id="favoritesButton">♥ Favorites <span id="favoriteCount">0</span></button>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <span class="eyebrow">YOUR DAILY COOKING COMPANION</span>
+                <h1>Good food.<br><span>Good mood.</span></h1>
+                <p>Discover delicious recipes, plan your meals, and make every day tastier.</p>
+                <a class="primary-btn" href="#recipes">Explore Recipes →</a>
+            </div>
+            <div class="hero-art" aria-label="Illustration of a bowl of food">🥗</div>
+            <div class="hero-decoration decoration-one">🍓</div>
+            <div class="hero-decoration decoration-two">🥑</div>
+        </section>
+
+        <section class="stats">
+            <div><strong id="recipeCount">8</strong><span>Recipes to explore</span></div>
+            <div><strong id="plannedCount">0</strong><span>Meals planned</span></div>
+            <div><strong id="savedCount">0</strong><span>Saved favorites</span></div>
+        </section>
+
+        <section class="section" id="recipes">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">FIND YOUR NEXT FAVORITE</span>
+                    <h2>Explore recipes</h2>
+                    <p>Simple ingredients, delicious results.</p>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <span>⌕</span>
+                <input id="searchInput" type="search" placeholder="Search recipes or ingredients..."
+                    aria-label="Search recipes">
+                <button id="clearSearch" type="button">Clear</button>
+            </div>
+
+            <div class="filters" id="filters">
+                <button class="filter-btn active" data-category="All">All recipes</button>
+                <button class="filter-btn" data-category="Breakfast">Breakfast</button>
+                <button class="filter-btn" data-category="Lunch">Lunch</button>
+                <button class="filter-btn" data-category="Dinner">Dinner</button>
+                <button class="filter-btn" data-category="Snacks">Snacks</button>
+                <button class="filter-btn" data-category="Vegetarian">Vegetarian</button>
+            </div>
+
+            <p class="result-label" id="resultLabel">Showing all recipes</p>
+            <div class="recipe-grid" id="recipeGrid"></div>
+            <div class="empty-state hidden" id="emptyRecipes">
+                <span>🍽️</span>
+                <h3>No recipes found</h3>
+                <p>Try another recipe name or ingredient.</p>
+            </div>
+        </section>
+
+        <section class="section planner-section" id="planner">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">PLAN AHEAD, EAT BETTER</span>
+                    <h2>Your weekly meal planner</h2>
+                    <p>Add a recipe to a day and meal time. Your plan is saved in this browser.</p>
+                </div>
+            </div>
+
+            <div class="planner-controls">
+                <label>
+                    Day
+                    <select id="planDay">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </label>
+                <label>
+                    Meal
+                    <select id="planMeal">
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                        <option>Snack</option>
+                    </select>
+                </label>
+                <label>
+                    Recipe
+                    <select id="planRecipe"></select>
+                </label>
+                <button class="primary-btn" id="addMealButton">+ Add Meal</button>
+            </div>
+
+            <div class="planner-summary" id="plannerSummary"></div>
+            <div class="week-grid" id="weekGrid"></div>
+        </section>
+
+        <section class="section shopping-section" id="shopping">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">READY FOR THE MARKET?</span>
+                    <h2>Your shopping list</h2>
+                    <p>Ingredients from all the meals in your weekly plan.</p>
+                </div>
+                <button class="secondary-btn" id="printButton">Print list</button>
+            </div>
+
+            <div class="shopping-card">
+                <div class="shopping-top">
+                    <div>
+                        <h3>🛒 Ingredients to buy</h3>
+                        <p id="shoppingSummary">Plan meals to create your shopping list.</p>
+                    </div>
+                    <button class="text-btn" id="clearCheckedButton">Clear checked</button>
+                </div>
+                <div id="shoppingList" class="shopping-list"></div>
+                <div class="shopping-footer">
+                    <span id="checkedSummary">0 items checked</span>
+                    <button class="primary-btn" id="copyListButton">Copy list</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="tip-banner">
+            <span>💡</span>
+            <div>
+                <h3>A little tip for a better week</h3>
+                <p>Plan your meals before shopping to save time, reduce food waste, and make cooking easier.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a class="logo" href="#">🍃 RecipeNest</a>
+        <p>Made with ♥ for people who love good food.</p>
+        <span>Frontend project · HTML · CSS · JavaScript</span>
+    </footer>
+
+    <div class="modal hidden" id="recipeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal" aria-label="Close recipe">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+
+</html>
